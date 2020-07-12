@@ -59,5 +59,4 @@ void pushRect(int width, int height, __uint32_t *screenBuffer)
         }
     }
 
-    uint64_t keys = Ion::Keyboard::scan();
 }
