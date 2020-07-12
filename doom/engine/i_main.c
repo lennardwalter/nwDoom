@@ -34,10 +34,10 @@ void D_DoomMain (void);
 
 void M_FindResponseFile(void);
 
-void dg_Create();
+void DG_Create();
 
 
-int main(int argc, char **argv)
+int DoomMain(int argc, char **argv)
 {
     // save arguments
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     // start doom
     printf("Starting D_DoomMain\r\n");
     
-	dg_Create();
+	DG_Create();
 
 	D_DoomMain ();
 

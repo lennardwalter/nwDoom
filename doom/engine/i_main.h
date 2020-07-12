@@ -1,0 +1,1 @@
+int DoomMain(int, char **);

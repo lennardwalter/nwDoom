@@ -1892,20 +1892,20 @@ void M_LoadDefaults (void)
     // default.
     //
 
-    i = M_CheckParmWithArgs("-config", 1);
+    // i = M_CheckParmWithArgs("-config", 1);
 
-    if (i)
-    {
-	doom_defaults.filename = myargv[i+1];
-	printf ("	default file: %s\n",doom_defaults.filename);
-    }
-    else
-    {
-        doom_defaults.filename
-            = M_StringJoin(configdir, default_main_config, NULL);
-    }
+    // if (i)
+    // {
+	// doom_defaults.filename = myargv[i+1];
+	// printf ("	default file: %s\n",doom_defaults.filename);
+    // }
+    // else
+    // {
+    //     doom_defaults.filename
+    //         = M_StringJoin(configdir, default_main_config, NULL);
+    // }
 
-    printf("saving config in %s\n", doom_defaults.filename);
+    // printf("saving config in %s\n", doom_defaults.filename);
 
     //!
     // @arg <file>

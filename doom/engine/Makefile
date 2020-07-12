@@ -76,9 +76,10 @@ w_file.c   \
 w_main.c   \
 w_wad.c   \
 z_zone.c   \
-w_file_stdc.c   \
 i_input.c   \
 i_video.c   \
 doomgeneric.c   \
-doomgeneric_xlib.c   \
+doomgeneric_numworks.c   \
+wrapper.cpp \
+w_file_nw.c \
 )

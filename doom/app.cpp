@@ -2,7 +2,9 @@
 #include "doom_icon.h"
 #include <apps/i18n.h>
 #include <apps/apps_container.h>
-#include <ion/console.h>
+extern "C"{
+  #include "apps/doom/engine/i_main.h"
+}
 
 
 
@@ -35,10 +37,10 @@ App::Descriptor * App::Snapshot::descriptor() {
 
 void App::didBecomeActive(Window * window) {
   ::App::didBecomeActive(window);
-
-  // start main doom application here
-
+  Ion::Display::pushRectUniform(KDRect(0, 0, 320, 240), KDColorBlack);
   
+  char *args[] = {"doom"};
+  DoomMain(1, args);
 }
 
 void App::willBecomeInactive() {

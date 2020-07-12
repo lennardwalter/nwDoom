@@ -431,24 +431,24 @@ void D_DoomLoop (void)
 
     V_RestoreBuffer();
     R_ExecuteSetViewSize();
-
+    
     D_StartGameLoop();
 
     if (testcontrols)
     {
         wipegamestate = gamestate;
     }
-
+    
     while (1)
     {
 		// frame syncronous IO operations
-		I_StartFrame ();
+        I_StartFrame ();
 
 		TryRunTics (); // will run at least one tic
 
 		S_UpdateSounds (players[consoleplayer].mo);// move positional sounds
 
-		// Update display, next frame, with current state.
+        // Update display, next frame, with current state.
 		if (screenvisible)
 		{
 			D_Display ();
@@ -863,14 +863,13 @@ void D_SetGameDescription(void)
 //      print title for every printed line
 char            title[128];
 
-static boolean D_AddFile(char *filename)
+static boolean D_AddFile()
 {
-    wad_file_t *handle;
 
-    printf(" adding %s\n", filename);
-    handle = W_AddFile(filename);
+    printf("adding wadfile");
+    W_AddFile();
 
-    return handle != NULL;
+    return true;
 }
 
 // Copyright message banners
@@ -1361,20 +1360,22 @@ void D_DoomMain (void)
     I_AtExit(M_SaveDefaults, false);
 
     // Find main IWAD file and load it.
-    iwadfile = D_FindIWAD(IWAD_MASK_DOOM, &gamemission);
+    // iwadfile = D_FindIWAD(IWAD_MASK_DOOM, &gamemission);
 
-    // None found?
+    // // None found?
 
-    if (iwadfile == NULL)
-    {
-        I_Error("Game mode indeterminate.  No IWAD file was found.  Try\n"
-                "specifying one with the '-iwad' command line parameter.\n");
-    }
+    // if (iwadfile == NULL)
+    // {
+    //     I_Error("Game mode indeterminate.  No IWAD file was found.  Try\n"
+    //             "specifying one with the '-iwad' command line parameter.\n");
+    // }
 
     modifiedgame = false;
 
-    DEH_printf("W_Init: Init WADfiles.\n");
-    D_AddFile(iwadfile);
+    DEH_printf("W_Init: Init WADfile.\n");
+    
+    // adding wadfile.h
+    D_AddFile();
 #if ORIGCODE
     numiwadlumps = numlumps;
 #endif

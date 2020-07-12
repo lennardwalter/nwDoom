@@ -136,7 +136,7 @@ static void ExtendLumpInfo(int newnumlumps)
 // Other files are single lumps with the base filename
 //  for the lump name.
 
-wad_file_t *W_AddFile (char *filename)
+wad_file_t *W_AddFile ()
 {
     wadinfo_t header;
     lumpinfo_t *lump_p;
@@ -150,60 +150,39 @@ wad_file_t *W_AddFile (char *filename)
 
     // open the file and add to directory
 
-    wad_file = W_OpenFile(filename);
+    wad_file = W_OpenFile();
 
     if (wad_file == NULL)
     {
-		printf (" couldn't open %s\n", filename);
+		printf ("couldn't open wadfile");
 		return NULL;
     }
 
     newnumlumps = numlumps;
+    
+    W_Read(wad_file, 0, &header, sizeof(header));
 
-    if (strcasecmp(filename+strlen(filename)-3 , "wad" ) )
-    {
-    	// single lump file
-
-        // fraggle: Swap the filepos and size here.  The WAD directory
-        // parsing code expects a little-endian directory, so will swap
-        // them back.  Effectively we're constructing a "fake WAD directory"
-        // here, as it would appear on disk.
-
-		fileinfo = Z_Malloc(sizeof(filelump_t), PU_STATIC, 0);
-		fileinfo->filepos = LONG(0);
-		fileinfo->size = LONG(wad_file->length);
-
-        // Name the lump after the base of the filename (without the
-        // extension).
-
-		M_ExtractFileBase (filename, fileinfo->name);
-		newnumlumps++;
-    }
-    else 
-    {
-    	// WAD file
-        W_Read(wad_file, 0, &header, sizeof(header));
-
-		if (strncmp(header.identification,"IWAD",4))
+	if (strncmp(header.identification,"IWAD",4))
+	{
+		// Homebrew levels?
+		if (strncmp(header.identification,"PWAD",4))
 		{
-			// Homebrew levels?
-			if (strncmp(header.identification,"PWAD",4))
-			{
-			I_Error ("Wad file %s doesn't have IWAD "
-				 "or PWAD id\n", filename);
-			}
-
-			// ???modifiedgame = true;
+		I_Error ("Wad file doesn't have IWAD "
+			 "or PWAD id");
 		}
 
-		header.numlumps = LONG(header.numlumps);
-		header.infotableofs = LONG(header.infotableofs);
-		length = header.numlumps*sizeof(filelump_t);
-		fileinfo = Z_Malloc(length, PU_STATIC, 0);
+		// ???modifiedgame = true;
+	}
+    
 
-        W_Read(wad_file, header.infotableofs, fileinfo, length);
-        newnumlumps += header.numlumps;
-    }
+	header.numlumps = LONG(header.numlumps);
+	header.infotableofs = LONG(header.infotableofs);
+	length = header.numlumps*sizeof(filelump_t);
+	fileinfo = Z_Malloc(length, PU_STATIC, 0);
+
+    W_Read(wad_file, header.infotableofs, fileinfo, length);
+    newnumlumps += header.numlumps;
+    
 
     // Increase size of numlumps array to accomodate the new file.
     startlump = numlumps;
