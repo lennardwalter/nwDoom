@@ -1,6 +1,6 @@
 ## nwDoom - Doom for the numworks graphing calculator
 
-You can play Doom almost anywhere, even on a Nokia N900. But not on the Numworks calculator? This looks like a job for me! 
+You can play Doom almost anywhere, even on a Nokia N900. But not on the Numworks calculator? Let's change that! 
 
 
 #### Installation
