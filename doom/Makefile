@@ -13,11 +13,7 @@ apps_src += $(addprefix apps/doom/,\
 app_images += apps/doom/doom_icon.png
 
 i18n_files += $(addprefix apps/doom/,\
-	base.de.i18n\
-	base.en.i18n\
-	base.es.i18n\
-	base.fr.i18n\
-	base.pt.i18n\
+	base.universal.i18n\
 )
 
 $(eval $(call depends_on_image,apps/doom/app.cpp,apps/doom/doom_icon.png))
